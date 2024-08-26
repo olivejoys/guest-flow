@@ -40,11 +40,7 @@ public class Event {
     private LocalDateTime createdAt;
 
 
-//    @PrePersist
-//    protected void onCreate() {
-//        if (this.id == null) {
-//            this.id = UUID.randomUUID().toString();
-//        }
-//    }
+
+
 }
 
