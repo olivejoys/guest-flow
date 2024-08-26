@@ -12,6 +12,7 @@ public class GuestFlowApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GuestFlowApplication.class, args);
 
+
 	}
 
 }
