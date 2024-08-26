@@ -1,7 +1,10 @@
 package domain.event;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -12,27 +15,36 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Event {
     @Id
-    @Column(nullable=false) // this column cannot be null
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false) // this column cannot be null
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @Column(nullable=false) // this column cannot be null
+    @Column(nullable = false) // this column cannot be null
     private String title;
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String details;
 
-    @Column(nullable=false, unique = true)
+    @Column(nullable = false, unique = true)
     private String slug;
 
-    @Column(nullable=false, name="max_attendees")
+    @Column(nullable = false, name = "max_attendees")
     private Integer max_attendees;
 
-   @ManyToOne
-   @JoinColumn(name = "event_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
-   @Column(name = "created_at", nullable = false)
-   private LocalDateTime createdAt;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
+
+//    @PrePersist
+//    protected void onCreate() {
+//        if (this.id == null) {
+//            this.id = UUID.randomUUID().toString();
+//        }
+//    }
 }
+
