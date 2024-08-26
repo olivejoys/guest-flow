@@ -20,7 +20,7 @@ public class EventServices {
     public EventResponseDTO getEventDetail(String eventId){
        Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event not found with ID.")); // it will be optional
         List<Attendees> attendeeList = this.attendeeRepository.findByEventId(eventId);
-        return new EventResponseDTO(event, 0);
+        return new EventResponseDTO(event, attendeeList.size());
 
 
     }
