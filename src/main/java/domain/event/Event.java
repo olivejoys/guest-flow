@@ -30,7 +30,7 @@ public class Event {
     private String slug;
 
     @Column(nullable = false, name = "max_attendees")
-    private Integer max_attendees;
+    private Integer maxAttendees;
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)

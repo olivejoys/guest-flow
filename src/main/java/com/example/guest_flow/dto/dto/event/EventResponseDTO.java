@@ -11,7 +11,7 @@ public class EventResponseDTO {
                 event.getTitle(),
                 event.getDetails(),
                 event.getSlug(),
-                event.getMax_attendees(),
+                event.getMaxAttendees(),
                 numberOfAttendees);
 
     }
