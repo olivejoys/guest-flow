@@ -16,8 +16,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AttendeeService {
-    private AttendeeRepository attendeeRepository;
-    private CheckinRepository checkinRepository;
+    private final AttendeeRepository attendeeRepository;
+    private final CheckinRepository checkinRepository;
 
     public List<Attendees> getAllAttendeesFromEvent(String eventId) {
         return this.attendeeRepository.findByEventId(eventId);
@@ -28,7 +28,7 @@ public class AttendeeService {
         List<Attendees> attendeeList = this.getAllAttendeesFromEvent(eventId);
 
         List<AttendeeDetails> attendeeDetailsList = attendeeList.stream().map(attendees -> {
-            Optional<CheckIn> checkIn = this.checkinRepository.findByAttendeeId(attendees.getId());
+            Optional<CheckIn> checkIn = this.checkinRepository.findByAttendees_Id(attendees.getId());
             LocalDateTime checkedInAt = checkIn
                     .map(checkInObj -> checkInObj.getCreatedAt().atStartOfDay()) // Converts LocalDate to LocalDateTime
                     .orElse(null);
