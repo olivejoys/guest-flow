@@ -1,7 +1,6 @@
 package com.example.guest_flow.services;
 
 import com.example.guest_flow.dto.dto.event.attendee.AttendeeDetails;
-import com.example.guest_flow.dto.dto.event.attendee.AttendeesListResponseDTO;
 import com.example.guest_flow.repositories.AttendeeRepository;
 import com.example.guest_flow.repositories.CheckinRepository;
 import domain.attendees.Attendees;
@@ -32,12 +31,24 @@ public class AttendeeService {
             LocalDateTime checkedInAt = checkIn
                     .map(checkInObj -> checkInObj.getCreatedAt().atStartOfDay()) // Converts LocalDate to LocalDateTime
                     .orElse(null);
-            return new AttendeeDetails(attendees.getId(), attendees.getName(), attendees.getEmail(), attendees.getCreatedAt(), checkedInAt);
+            return new AttendeeDetails(attendees.getId(), attendees.getName(),
+                    attendees.getEmail(), attendees.getCreatedAt(), checkedInAt);
         }).toList();
 
         return new AttendeesListResponseDTO(attendeeDetailsList);
 
     }
 
+    public Attendees registerAttendee(Attendees newAttendee){
+        this.attendeeRepository.save(newAttendee);
+        return newAttendee;
+    }
+
+    public void verifyAttendeeSubscription(String email, String eventId)
+    {
+        Optional<Attendees> isAttendeeRegistered = this.attendeeRepository.findByEventIdAndEmail(eventId,email);
+        if(isAttendeeRegistered.isPresent()) throw new RuntimeException("Attendee is already registered.");
+
+    }
 
 }
