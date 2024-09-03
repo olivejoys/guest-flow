@@ -4,6 +4,8 @@ package com.example.guest_flow.Controllers;
 import com.example.guest_flow.dto.dto.event.EventIdDTO;
 import com.example.guest_flow.dto.dto.event.EventRequestDTO;
 import com.example.guest_flow.dto.dto.event.EventResponseDTO;
+import com.example.guest_flow.dto.dto.event.attendee.AttendeeIdDTO;
+import com.example.guest_flow.dto.dto.event.attendee.AttendeeRequestDTO;
 import com.example.guest_flow.dto.dto.event.attendee.AttendeesListResponseDTO;
 import com.example.guest_flow.services.AttendeeService;
 import com.example.guest_flow.services.EventServices;
@@ -35,8 +37,15 @@ public class EventController {
         return ResponseEntity.created(uri).body((eventIdDTO));
     }
 
+    @PostMapping("/{eventsId}/attendees") //we want the status 201 to https status
+    public ResponseEntity<AttendeeIdDTO> registerParticipant(@PathVariable String eventsId, @RequestBody AttendeeRequestDTO body, UriComponentsBuilder uriComponentsBuilder)  {
+        AttendeeIdDTO attendeeIdDTO = this.eventServices.registerAttendeeOnEvent(eventsId,body);
+        var uri = uriComponentsBuilder.path("/attendees/{attendeeId}/badge").buildAndExpand(attendeeIdDTO.attendeeId()).toUri();
+        return ResponseEntity.created(uri).body((attendeeIdDTO));
+    }
 
-        @GetMapping("/attendees/{id}")
+
+    @GetMapping("/attendees/{id}")
         public ResponseEntity<AttendeesListResponseDTO> getEventAttendees(@PathVariable String id) {
         AttendeesListResponseDTO attendeeListResponse = this.attendeeService.getEventsAttendee(id);
         return ResponseEntity.ok(attendeeListResponse);
