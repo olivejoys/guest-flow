@@ -4,6 +4,7 @@ package com.example.guest_flow.Controllers;
 import com.example.guest_flow.dto.dto.event.EventIdDTO;
 import com.example.guest_flow.dto.dto.event.EventRequestDTO;
 import com.example.guest_flow.dto.dto.event.EventResponseDTO;
+import com.example.guest_flow.dto.dto.event.attendee.AttendeesListResponseDTO;
 import com.example.guest_flow.services.AttendeeService;
 import com.example.guest_flow.services.EventServices;
 import lombok.RequiredArgsConstructor;
