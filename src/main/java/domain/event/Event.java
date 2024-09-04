@@ -33,7 +33,7 @@ public class Event {
     private Integer maxAttendees;
 
     @ManyToOne
-    @JoinColumn(name = "event_id", nullable = false)
+    @JoinColumn(name = "event_id", nullable = true)
     private Event event;
 
     @Column(name = "created_at", nullable = false)

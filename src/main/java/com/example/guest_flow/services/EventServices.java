@@ -33,11 +33,11 @@ public class EventServices {
 
     public EventIdDTO createEvent(EventRequestDTO eventTDO) {
         Event newEvent = new Event();
+        newEvent.setCreatedAt(LocalDateTime.now());
         newEvent.setTitle(eventTDO.title());
         newEvent.setDetails(eventTDO.details());
         newEvent.setMaxAttendees(eventTDO.maxAttendees());
         newEvent.setSlug(this.createSlug(eventTDO.title()));
-        newEvent.setCreatedAt(LocalDateTime.now());
 
         this.eventRepository.save(newEvent);
         return new EventIdDTO(newEvent.getId());

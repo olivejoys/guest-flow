@@ -37,7 +37,7 @@ public class EventController {
         return ResponseEntity.created(uri).body((eventIdDTO));
     }
 
-    @PostMapping("/{eventsId}/attendees") //we want the status 201 to https status
+    @PostMapping("/{id}/attendees") //we want the status 201 to https status
     public ResponseEntity<AttendeeIdDTO> registerParticipant(@PathVariable String eventsId, @RequestBody AttendeeRequestDTO body, UriComponentsBuilder uriComponentsBuilder)  {
         AttendeeIdDTO attendeeIdDTO = this.eventServices.registerAttendeeOnEvent(eventsId,body);
         var uri = uriComponentsBuilder.path("/attendees/{attendeeId}/badge").buildAndExpand(attendeeIdDTO.attendeeId()).toUri();
