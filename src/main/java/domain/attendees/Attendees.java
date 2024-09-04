@@ -32,7 +32,7 @@ public class Attendees {
     private Event event;
 
 
-    @Column(nullable = false, name = "day_created")
+    @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
 
 }
