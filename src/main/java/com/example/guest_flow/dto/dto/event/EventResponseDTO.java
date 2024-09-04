@@ -1,7 +1,9 @@
 package com.example.guest_flow.dto.dto.event;
 
 import domain.event.Event;
+import lombok.Getter;
 
+@Getter
 public class EventResponseDTO {
     EventDetailDTO event;
 

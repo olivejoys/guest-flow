@@ -28,11 +28,11 @@ public class Attendees {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "event_id", nullable = false)
+    @JoinColumn(name = "event_id", nullable = true)
     private Event event;
 
 
-    @Column(nullable = false, name = "day_created")
-    private LocalDateTime day_created;
+    @Column(nullable = false, name = "created_at")
+    private LocalDateTime createdAt;
 
 }

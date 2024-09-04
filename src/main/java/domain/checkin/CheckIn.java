@@ -22,7 +22,7 @@ public class CheckIn {
     private Integer id;
 
     @Column(name = "created_at")
-    private LocalDate created_at;
+    private LocalDate createdAt;
 
 
     @OneToOne

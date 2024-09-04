@@ -1,7 +1,12 @@
 package com.example.guest_flow.repositories;
 
-import domain.attendees.Attendees;
+import domain.checkin.CheckIn;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CheckinRepository extends JpaRepository<Attendees, Integer> {
+import java.util.Optional;
+
+public interface CheckinRepository extends JpaRepository<CheckIn, Integer> {
+    Optional<CheckIn> findByAttendees_Id(String attendeesId);
+
 }
+

@@ -3,5 +3,8 @@ CREATE TABLE events (
     title VARCHAR(255) NOT NULL,
     details VARCHAR(255) NOT NULL,
     slug VARCHAR(255) NOT NULL,
-    max_attendees INTEGER NOT NULL
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    max_attendees INTEGER NOT NULL,
+    event_id VARCHAR(255)
+
 );
