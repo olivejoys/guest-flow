@@ -1,4 +1,6 @@
 Guest-flow 
+
+
 Overview
 The Guestflow is a REST API web-based application built with Java 17 and the latest version of Spring Boot that allows users to create, manage, and track events.
 Also, users can register attendees for events, view detailed event information, and track participation. The GuestFlow system uses a REST API for communication between the frontend and backend, and it persists event data in a relational database.
