@@ -109,7 +109,9 @@ GET	/events/{id}	Get details of a specific event
 POST	/events	Create a new event
 POST	/events/{id}/attendees	Register a new attendee for the event
 GET	/attendees/{id}	Get list of attendees for a specific event
+
 Technologies
+
 Java 17
 Spring Boot 3.x (latest version) 
 Spring Data JPA for data persistence
