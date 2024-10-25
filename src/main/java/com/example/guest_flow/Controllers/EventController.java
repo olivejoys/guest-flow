@@ -19,6 +19,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/events")
 @RequiredArgsConstructor
+
 public class EventController {
     private final EventServices eventServices;
     private final AttendeeService attendeeService;
@@ -45,6 +46,7 @@ public class EventController {
     }
 
 
+    @CrossOrigin(origins = "http://127.0.0.1:5173")
     @GetMapping("/attendees/{id}")
         public ResponseEntity<AttendeesListResponseDTO> getEventAttendees(@PathVariable String id) {
         AttendeesListResponseDTO attendeeListResponse = this.attendeeService.getEventsAttendee(id);
