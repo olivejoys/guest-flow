@@ -46,8 +46,8 @@ public class EventController {
     }
 
 
-    @CrossOrigin(origins = "http://127.0.0.1:5173")
-    @GetMapping("/attendees/{id}")
+    @CrossOrigin(origins = "http://127.0.0.1:3000")
+    @GetMapping("{id}/attendees")
         public ResponseEntity<AttendeesListResponseDTO> getEventAttendees(@PathVariable String id) {
         AttendeesListResponseDTO attendeeListResponse = this.attendeeService.getEventsAttendee(id);
         return ResponseEntity.ok(attendeeListResponse);
