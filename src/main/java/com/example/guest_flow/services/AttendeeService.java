@@ -9,6 +9,8 @@ import domain.attendees.Attendees;
 import domain.attendees.exceptions.AttendeesNotFoundException;
 import domain.checkin.CheckIn;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,22 +29,31 @@ public class AttendeeService {
 
     }
 
-    public AttendeesListResponseDTO getEventsAttendee(String eventId) {
-        List<Attendees> attendeeList = this.getAllAttendeesFromEvent(eventId);
+    public AttendeesListResponseDTO getEventsAttendee(String eventId, int page, int size) {
+        // Set default values if page or size are null
+        int defaultPage = ( page < 0) ? 0 : page;
+        int defaultSize = (size <= 0) ? 10 : size;
 
-        List<AttendeeDetails> attendeeDetailsList =
-                attendeeList.stream().map(attendees -> {
-            Optional<CheckIn> checkIn =
-                    this.checkinService.getCheckIn(attendees.getId());
+        List<Attendees> attendeeList = this.getAllAttendeesFromEvent(eventId);
+        Pageable pageable = PageRequest.of(defaultPage, defaultSize);
+        int start = Math.min((int) pageable.getOffset(), attendeeList.size()-1);
+        int end = Math.min((start + pageable.getPageSize()), attendeeList.size());
+
+        // Slice the list to create a paginated sublist
+
+        List<Attendees> paginatedAttendees = attendeeList.subList(start, end);
+
+        List<AttendeeDetails> attendeeDetailsList = paginatedAttendees.stream().map(attendees -> {
+            Optional<CheckIn> checkIn = this.checkinService.getCheckIn(attendees.getId());
             LocalDateTime checkedInAt = checkIn
-                    .map(checkInObj ->
-                            checkInObj.getCreatedAt().atStartOfDay()) // Converts LocalDate to LocalDateTime
+                    .map(checkInObj -> checkInObj.getCreatedAt().atStartOfDay())
                     .orElse(null);
             return new AttendeeDetails(attendees.getId(), attendees.getName(),
                     attendees.getEmail(), attendees.getCreatedAt(), checkedInAt);
         }).toList();
 
-        return new AttendeesListResponseDTO(attendeeDetailsList);
+
+        return new AttendeesListResponseDTO(attendeeDetailsList, attendeeList.size(), page, size);
 
     }
 
